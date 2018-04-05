@@ -17,41 +17,42 @@ def checkPrime(i):
 
 
 def main():
-   for i in xrange(2,100):
+   primes = [2]   # list to store primes
+   count = 0
+   short = True
+
+   for i in xrange(3, 10000, 2):
+      if count >= 99:     # storing 1st 100 primes.  can comment out later
+         break
       ret = checkPrime(i)
       if ret:
-         print str(i) + ":  Prime"
-         # ret2 = True
-         # secPrime = i
-         # while ret2:
-         #    secPrime = 2 * secPrime + 1
-         #    ret2 = checkPrime(secPrime)
-         #    if ret2:
-         #       print secPrime
+         if short:
+            count += 1
+#         print str(i) + ":  Prime"
+         primes.append(i)
 
-#      print str(i) + " " + str(ret)
+   mers = {}
+   for i in primes:
+      ret = True
+      listOfPrimes = []
+      newNum = i
+      while ret:
+         newNum = 2 * newNum + 1
+         ret = checkPrime(newNum)
+         listOfPrimes.append(newNum)
+      mers[i] = listOfPrimes
+   print mers
+   longest = 0
+   longestPrime = 0
+   for itr in sorted(mers.keys()):
+      if len(mers[itr][:-1]) > longest:
+         longest = len(mers[itr][:-1])
+         longestPrime = itr
+      print str(itr) + " " + str(mers[itr][:-1]) + ".  Last number, which is composite was " + str(mers[itr][-1]) + ".  Length was " + str(len(mers[itr][:-1]))
+   print "The prime with the longest run was: " + str(longestPrime) + " with a run of " + str(longest)
 
 if __name__ == "__main__":
    main()
-
-   # for i in xrange(1, 100):
-   #    prime = True
-   #    if i == 1:
-   #       prime = False
-   #    elif i == 2:
-   #       pass
-   #    else:
-   #       sqrt = int(math.sqrt(i) + 1)
-   #       for j in xrange(2,sqrt):
-   #          if i % j == 0:
-   #             prime = False
-   #             break
-   #
-   #    return prime
-   #    # if prime:
-   #    #    print str(i) + " is prime"
-   #    # else:
-   #    #    print str(i) + " is composite"
 
 
 # algo
